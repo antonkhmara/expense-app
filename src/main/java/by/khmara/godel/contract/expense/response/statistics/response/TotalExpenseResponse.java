@@ -1,4 +1,4 @@
-package by.khmara.godel.contract.expense.response.statistics;
+package by.khmara.godel.contract.expense.response.statistics.response;
 
 import io.micronaut.core.annotation.Introspected;
 

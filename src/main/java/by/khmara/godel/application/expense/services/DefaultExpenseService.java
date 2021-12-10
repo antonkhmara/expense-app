@@ -57,8 +57,8 @@ public class DefaultExpenseService implements ExpenseService {
 	}
 
 	@Override
-	public Mono<Void> deleteExpense(UUID expenseId) {
-		return expenseRepository.delete(expenseId);
+	public Mono<Long> deleteExpense(UUID expenseId) {
+		return expenseRepository.deleteById(expenseId);
 	}
 }
 

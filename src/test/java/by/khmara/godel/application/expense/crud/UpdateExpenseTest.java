@@ -1,14 +1,15 @@
-package by.khmara.godel.application.expense;
+package by.khmara.godel.application.expense.crud;
 
 import by.khmara.godel.application.TestClient;
+import by.khmara.godel.application.TestContext;
 import by.khmara.godel.contract.expense.request.ExpenseUpdateRequest;
 import by.khmara.godel.contract.expense.response.ExpenseResponse;
-import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
-import jakarta.inject.Inject;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import javax.validation.ConstraintViolationException;
 import java.time.LocalDateTime;
@@ -20,13 +21,11 @@ import static by.khmara.godel.application.TestUtils.randomExpense;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-@MicronautTest
+@Testcontainers
 @TestInstance(Lifecycle.PER_CLASS)
 public class UpdateExpenseTest {
 	ExpenseResponse expense;
-
-	@Inject
-	TestClient client;
+	TestClient client = TestContext.getClient();
 
 	@BeforeAll
 	void prepareData() {
@@ -59,5 +58,10 @@ public class UpdateExpenseTest {
 	void shouldThrownViolationExceptionIfDescriptionIsBlank() {
 		assertThatThrownBy(() -> client.updateExpense(expense.id(), expenseUpdateRequest("")))
 			.isInstanceOf(ConstraintViolationException.class);
+	}
+
+	@AfterAll
+	void deleteData() {
+		client.deleteExpense(expense.id());
 	}
 }

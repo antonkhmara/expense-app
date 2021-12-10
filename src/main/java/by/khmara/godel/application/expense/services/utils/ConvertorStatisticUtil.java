@@ -1,8 +1,10 @@
 package by.khmara.godel.application.expense.services.utils;
 
-import by.khmara.godel.contract.expense.response.statistics.ExceededLimitByCategoriesResponse;
-import by.khmara.godel.contract.expense.response.statistics.ExpensesByMonthResponse;
-import by.khmara.godel.contract.expense.response.statistics.TotalExpenseResponse;
+import by.khmara.godel.contract.expense.response.statistics.response.DateWithoutExpensesResponse;
+import by.khmara.godel.contract.expense.response.statistics.response.ExceededLimitByCategoriesResponse;
+import by.khmara.godel.contract.expense.response.statistics.response.ExpenseByCategoryResponse;
+import by.khmara.godel.contract.expense.response.statistics.response.ExpensesByMonthResponse;
+import by.khmara.godel.contract.expense.response.statistics.response.TotalExpenseResponse;
 import io.r2dbc.spi.Row;
 import io.r2dbc.spi.RowMetadata;
 
@@ -25,11 +27,11 @@ public final class ConvertorStatisticUtil {
 		return new ExceededLimitByCategoriesResponse(r.get("name", String.class), r.get("total", Double.class));
 	}
 
-	public static String convertToDescription(Row r, RowMetadata rm) {
-		return r.get("description", String.class);
+	public static ExpenseByCategoryResponse convertToExpenseByCategoryResponse(Row r, RowMetadata rm) {
+		return new ExpenseByCategoryResponse(r.get("description", String.class));
 	}
 
-	public static LocalDateTime convertToDate(Row r, RowMetadata rm) {
-		return r.get("created_at", LocalDateTime.class);
+	public static DateWithoutExpensesResponse convertToDateWithoutExpensesResponse(Row r, RowMetadata rm) {
+		return new DateWithoutExpensesResponse(r.get("created_at", LocalDateTime.class));
 	}
 }

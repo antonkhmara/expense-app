@@ -19,5 +19,5 @@ public interface ExpenseService {
 
 	Mono<Expense> updateExpense(UUID expenseId, ExpenseUpdateRequest req);
 
-	Mono<Void> deleteExpense(UUID expenseId);
+	Mono<Long> deleteExpense(UUID expenseId);
 }

@@ -10,7 +10,7 @@ import reactor.core.publisher.Mono;
 import javax.validation.Valid;
 
 public interface ExpenseQueryContract {
-	@Get("/expenses/v1/{?req*}")
+	@Get("/expenses/v1/search{?req*}")
 	Flux<ExpenseResponse> getExpenses(@Valid ExpenseQueryRequest req);
 
 	@Get("/expenses/v1/count{?req*}")
