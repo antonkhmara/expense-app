@@ -1,0 +1,17 @@
+micronaut:
+  application:
+    name: expenseApp
+r2dbc:
+  datasources:
+    default:
+      url: r2dbc:postgresql://localhost:5432/postgres
+      username: postgres
+      password: postgres
+      schema-generate: CREATE
+      dialect: POSTGRES
+
+flyway:
+  datasources:
+    default:
+      enabled: true
+      clean-schema: true
