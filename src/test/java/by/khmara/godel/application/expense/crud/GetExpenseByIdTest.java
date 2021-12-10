@@ -3,6 +3,7 @@ package by.khmara.godel.application.expense.crud;
 import by.khmara.godel.application.TestClient;
 import by.khmara.godel.application.TestContext;
 import by.khmara.godel.contract.expense.response.ExpenseResponse;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -46,5 +47,10 @@ public class GetExpenseByIdTest {
 	void shouldThrownExceptionIfIdIsNull() {
 		assertThatThrownBy(() -> client.getExpanse(null))
 			.isInstanceOf(IllegalArgumentException.class);
+	}
+
+	@AfterAll
+	void deleteData() {
+		client.deleteExpense(expense.id());
 	}
 }

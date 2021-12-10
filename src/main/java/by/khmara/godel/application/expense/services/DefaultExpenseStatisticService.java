@@ -1,8 +1,11 @@
 package by.khmara.godel.application.expense.services;
 
 import by.khmara.godel.application.expense.services.utils.ConvertorStatisticUtil;
-import by.khmara.godel.contract.expense.response.statistics.ExpensesByMonthResponse;
-import by.khmara.godel.contract.expense.response.statistics.TotalExpenseResponse;
+import by.khmara.godel.contract.expense.response.statistics.request.DatesIntervalRequest;
+import by.khmara.godel.contract.expense.response.statistics.response.DateWithoutExpensesResponse;
+import by.khmara.godel.contract.expense.response.statistics.response.ExpenseByCategoryResponse;
+import by.khmara.godel.contract.expense.response.statistics.response.ExpensesByMonthResponse;
+import by.khmara.godel.contract.expense.response.statistics.response.TotalExpenseResponse;
 import io.micronaut.data.r2dbc.operations.R2dbcOperations;
 import jakarta.inject.Singleton;
 import lombok.RequiredArgsConstructor;
@@ -10,8 +13,6 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Map;
 
 import static by.khmara.godel.application.expense.services.queries.constants.StatisticQueryConstants.LIST_OF_EXPENSES_BY_CATEGORY;
@@ -84,20 +85,20 @@ public class DefaultExpenseStatisticService implements ExpenseStatisticService {
 
 	@Override
 	@Transactional
-	public Flux<String> listExpensesByCategory(String categoryName) {
+	public Flux<ExpenseByCategoryResponse> listExpensesByCategory(String categoryName) {
 		return Flux.from(r2dbcOperations.withTransaction(connection -> connection.getConnection()
 				.createStatement(format(LIST_OF_EXPENSES_BY_CATEGORY, categoryName))
 				.execute()))
-			.flatMap(result -> result.map(ConvertorStatisticUtil::convertToDescription));
+			.flatMap(result -> result.map(ConvertorStatisticUtil::convertToExpenseByCategoryResponse));
 	}
 
 	@Override
 	@Transactional
-	public Mono<LocalDateTime> searchDayWithoutExpansesFromInterval(List<LocalDateTime> dates) {
+	public Mono<DateWithoutExpensesResponse> searchDayWithoutExpansesFromInterval(DatesIntervalRequest req) {
 		return Mono.from(r2dbcOperations.withTransaction(connection -> connection.getConnection()
-				.createStatement(format(SEARCH_DAY_WITHOUT_EXPENSES, dates.get(0), dates.get(1)))
+				.createStatement(format(SEARCH_DAY_WITHOUT_EXPENSES, req.fromDate(), req.toDate()))
 				.execute()))
-			.map(result -> result.map(ConvertorStatisticUtil::convertToDate))
+			.map(result -> result.map(ConvertorStatisticUtil::convertToDateWithoutExpensesResponse))
 			.flatMap(Mono::from);
 	}
 }

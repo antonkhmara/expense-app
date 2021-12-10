@@ -16,10 +16,10 @@ public class GetExpensesByQueryTest {
 	TestClient client = TestContext.getClient();
 
 	@Test
-	void shouldReturn16Expenses() {
+	void shouldReturn17Expenses() {
 		var expenses = client.getExpenses(new ExpenseQueryRequest());
 
-		assertThat(expenses).hasSize(16);
+		assertThat(expenses).hasSize(17);
 	}
 
 	@Test
@@ -40,7 +40,7 @@ public class GetExpensesByQueryTest {
 	void shouldReturn16ExpansesToDate() {
 		var expenses = client.getExpenses(expenseQueryRequest(null, LocalDateTime.now()));
 
-		assertThat(expenses).hasSize(16);
+		assertThat(expenses).hasSize(17);
 	}
 
 	@Test

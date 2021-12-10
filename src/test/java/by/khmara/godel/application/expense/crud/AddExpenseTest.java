@@ -6,7 +6,11 @@ import by.khmara.godel.application.TestUtils;
 import by.khmara.godel.application.expense.models.Category;
 import by.khmara.godel.contract.expense.request.ExpenseCreateRequest;
 import by.khmara.godel.contract.expense.response.ExpenseResponse;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import javax.validation.ConstraintViolationException;
@@ -19,13 +23,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @Testcontainers
+@TestInstance(Lifecycle.PER_CLASS)
 public class AddExpenseTest {
+	ExpenseResponse response;
 	TestClient client = TestContext.getClient();
+
+	@BeforeAll
+	void prepareData() {
+		response = TestUtils.randomExpense(client);
+	}
 
 	@Test
 	void shouldCreateExpense() {
-		var response = TestUtils.randomExpense(client);
-
 		assertThat(response.id()).isInstanceOf(UUID.class);
 		assertThat(response.description()).isInstanceOf(String.class);
 		assertThat(response.category()).isInstanceOf(Category.class);
@@ -35,8 +44,6 @@ public class AddExpenseTest {
 
 	@Test
 	void shouldReturnExpenseResponse() {
-		var response = TestUtils.randomExpense(client);
-
 		assertThat(response).isInstanceOf(ExpenseResponse.class);
 	}
 
@@ -62,5 +69,10 @@ public class AddExpenseTest {
 
 		assertThatThrownBy(() -> client.createExpanse(request))
 			.isInstanceOf(ConstraintViolationException.class);
+	}
+
+	@AfterAll
+	void deleteData() {
+		client.deleteExpense(response.id());
 	}
 }

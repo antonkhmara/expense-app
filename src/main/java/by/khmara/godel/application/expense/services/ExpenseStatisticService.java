@@ -1,12 +1,13 @@
 package by.khmara.godel.application.expense.services;
 
-import by.khmara.godel.contract.expense.response.statistics.ExpensesByMonthResponse;
-import by.khmara.godel.contract.expense.response.statistics.TotalExpenseResponse;
+import by.khmara.godel.contract.expense.response.statistics.request.DatesIntervalRequest;
+import by.khmara.godel.contract.expense.response.statistics.response.DateWithoutExpensesResponse;
+import by.khmara.godel.contract.expense.response.statistics.response.ExpenseByCategoryResponse;
+import by.khmara.godel.contract.expense.response.statistics.response.ExpensesByMonthResponse;
+import by.khmara.godel.contract.expense.response.statistics.response.TotalExpenseResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Map;
 
 public interface ExpenseStatisticService {
@@ -18,7 +19,7 @@ public interface ExpenseStatisticService {
 
 	Mono<Map<String, Double>> categoriesWithExceededLimit();
 
-	Flux<String> listExpensesByCategory(String categoryName);
+	Flux<ExpenseByCategoryResponse> listExpensesByCategory(String categoryName);
 
-	Mono<LocalDateTime> searchDayWithoutExpansesFromInterval(List<LocalDateTime> dates);
+	Mono<DateWithoutExpensesResponse> searchDayWithoutExpansesFromInterval(DatesIntervalRequest req);
 }

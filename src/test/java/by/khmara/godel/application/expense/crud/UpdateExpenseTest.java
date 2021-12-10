@@ -4,6 +4,7 @@ import by.khmara.godel.application.TestClient;
 import by.khmara.godel.application.TestContext;
 import by.khmara.godel.contract.expense.request.ExpenseUpdateRequest;
 import by.khmara.godel.contract.expense.response.ExpenseResponse;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -57,5 +58,10 @@ public class UpdateExpenseTest {
 	void shouldThrownViolationExceptionIfDescriptionIsBlank() {
 		assertThatThrownBy(() -> client.updateExpense(expense.id(), expenseUpdateRequest("")))
 			.isInstanceOf(ConstraintViolationException.class);
+	}
+
+	@AfterAll
+	void deleteData() {
+		client.deleteExpense(expense.id());
 	}
 }

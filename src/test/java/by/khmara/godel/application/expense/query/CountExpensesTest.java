@@ -16,7 +16,7 @@ public class CountExpensesTest {
 	void shouldReturn16ExpensesWithDefaultRequest() {
 		var x = client.countExpenses(new ExpenseQueryRequest());
 
-		assertThat(x.total()).isEqualTo(16);
+		assertThat(x.total()).isEqualTo(17);
 	}
 
 //	TODO: add more tests with different query's requests
