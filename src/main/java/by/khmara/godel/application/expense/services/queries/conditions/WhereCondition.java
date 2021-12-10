@@ -4,41 +4,36 @@ import by.khmara.godel.contract.expense.request.ExpenseQueryRequest;
 import jakarta.inject.Singleton;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Singleton
 public class WhereCondition implements Condition {
 	@Override
 	public String buildRule(ExpenseQueryRequest req) {
-		if (req.getCategoryName() == null && req.getDateInterval() == null)
+		if (req.getCategoryName() == null && req.getFromDate() == null && req.getToDate() == null)
 			return "";
 
 		var builder = new StringBuilder(" WHERE ");
 		if (req.getCategoryName() != null)
 			builder.append(categorySubCondition(req.getCategoryName()));
 
-		if (req.getCategoryName() != null && req.getDateInterval() != null)
+		if (req.getCategoryName() != null && (req.getFromDate() != null || req.getToDate() != null))
 			builder.append(" AND ");
 
-		if (req.getDateInterval() != null)
-			builder.append(dateSubCondition(req.getDateInterval()));
+		builder.append(dateSubCondition(req.getFromDate(), req.getToDate()));
 
 		return builder.toString();
 	}
 
 	private String categorySubCondition(String categoryName) {
-		return "category_name='" + categoryName + "'";
+		return "c.name='" + categoryName + "'";
 	}
 
-	private String dateSubCondition(List<LocalDateTime> dates) {
+	private String dateSubCondition(LocalDateTime fromDate, LocalDateTime toDate) {
 		var builder = new StringBuilder();
 
-		var startDate = dates.get(0) != null ? dates.get(0) : null;
-		var endDate = dates.get(1) != null ? dates.get(1) : null;
-
-		if (startDate != null) builder.append("created_at>").append(startDate);
-		if (startDate != null && endDate != null) builder.append(" AND ");
-		if (endDate != null) builder.append("created_at<").append(endDate);
+		if (fromDate != null) builder.append("created_at>'").append(fromDate).append("'");
+		if (fromDate != null && toDate != null) builder.append(" AND ");
+		if (toDate != null) builder.append("created_at<'").append(toDate).append("'");
 
 		return builder.toString();
 	}

@@ -27,6 +27,7 @@ public interface ExpenseRepository extends ReactiveStreamsCrudRepository<Expense
 	@NonNull
 	Mono<Expense> update(@Valid @NonNull Expense expense);
 
+	@Override
 	@NonNull
-	Mono<Void> delete(@NotNull @NonNull UUID id);
+	Mono<Long> deleteById(@NotNull @NonNull UUID id);
 }

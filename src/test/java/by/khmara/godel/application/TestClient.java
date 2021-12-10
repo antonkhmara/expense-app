@@ -30,11 +30,11 @@ public interface TestClient {
 	ExpenseResponse updateExpense(UUID expenseId, @Valid @Body ExpenseUpdateRequest req);
 
 	@Delete("/expense/v1/{expanseId}")
-	Void deleteExpense(UUID expanseId);
+	Long deleteExpense(UUID expanseId);
 
-	@Get("/expenses/v1/{?req*}")
-	List<ExpenseResponse> getExpanses(@Valid ExpenseQueryRequest req);
+	@Get("/expenses/v1/search{?req*}")
+	List<ExpenseResponse> getExpenses(@Valid ExpenseQueryRequest req);
 
 	@Get("/expenses/v1/count{?req*}")
-	CountResponse countExpanses(@Valid ExpenseQueryRequest req);
+	CountResponse countExpenses(@Valid ExpenseQueryRequest req);
 }

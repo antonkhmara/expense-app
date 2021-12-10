@@ -1,13 +1,13 @@
-package by.khmara.godel.application.expense;
+package by.khmara.godel.application.expense.crud;
 
 import by.khmara.godel.application.TestClient;
+import by.khmara.godel.application.TestContext;
 import by.khmara.godel.application.TestUtils;
 import by.khmara.godel.application.expense.models.Category;
 import by.khmara.godel.contract.expense.request.ExpenseCreateRequest;
 import by.khmara.godel.contract.expense.response.ExpenseResponse;
-import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
-import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import javax.validation.ConstraintViolationException;
 import java.time.LocalDateTime;
@@ -18,10 +18,9 @@ import static by.khmara.godel.application.TestUtils.randomAmount;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-@MicronautTest
+@Testcontainers
 public class AddExpenseTest {
-	@Inject
-	TestClient client;
+	TestClient client = TestContext.getClient();
 
 	@Test
 	void shouldCreateExpense() {

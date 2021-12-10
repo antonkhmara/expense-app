@@ -2,6 +2,7 @@ package by.khmara.godel.application;
 
 import by.khmara.godel.application.expense.models.Category;
 import by.khmara.godel.contract.expense.request.ExpenseCreateRequest;
+import by.khmara.godel.contract.expense.request.ExpenseQueryRequest;
 import by.khmara.godel.contract.expense.request.ExpenseUpdateRequest;
 import by.khmara.godel.contract.expense.response.ExpenseResponse;
 
@@ -41,5 +42,18 @@ public final class TestUtils {
 
 	public static ExpenseResponse randomExpense(TestClient client) {
 		return client.createExpanse(expenseCreateRequest());
+	}
+
+	public static ExpenseQueryRequest expenseQueryRequest(String categoryName) {
+		var request = new ExpenseQueryRequest();
+		request.setCategoryName(categoryName);
+		return request;
+	}
+
+	public static ExpenseQueryRequest expenseQueryRequest(LocalDateTime fromDate, LocalDateTime toDate) {
+		var request = new ExpenseQueryRequest();
+		request.setFromDate(fromDate);
+		request.setToDate(toDate);
+		return request;
 	}
 }

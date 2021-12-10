@@ -25,5 +25,5 @@ public interface ExpenseContract {
 	Mono<ExpenseResponse> updateExpense(UUID expenseId, @Valid @Body ExpenseUpdateRequest req);
 
 	@Delete("/expense/v1/{expanseId}")
-	Mono<Void> deleteExpense(UUID expanseId);
+	Mono<Long> deleteExpense(@NonNull UUID expanseId);
 }

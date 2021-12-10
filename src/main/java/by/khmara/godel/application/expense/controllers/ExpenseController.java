@@ -42,7 +42,7 @@ public class ExpenseController implements ExpenseContract {
 	}
 
 	@Override
-	public Mono<Void> deleteExpense(UUID expanseId) {
+	public Mono<Long> deleteExpense(UUID expanseId) {
 		return expenseService.deleteExpense(expanseId);
 	}
 }

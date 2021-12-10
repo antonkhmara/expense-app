@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
-import java.util.List;
 
 import static by.khmara.godel.contract.expense.Constants.DEFAULT_PAGE_NUMB;
 import static by.khmara.godel.contract.expense.Constants.DEFAULT_PAGE_SIZE;
@@ -21,7 +20,8 @@ import static by.khmara.godel.contract.expense.Constants.DEFAULT_SORT_ORDER;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ExpenseQueryRequest {
-	private List<LocalDateTime> dateInterval;
+	private LocalDateTime fromDate;
+	private LocalDateTime toDate;
 	private String categoryName;
 	@Pattern(regexp = "description|created_at|amount|category", message = V8NMessages.SORT_FIELD_IS_INVALID)
 	private String sortField = DEFAULT_SORT_FIELD;
@@ -32,8 +32,9 @@ public class ExpenseQueryRequest {
 	@Min(value = 1, message = V8NMessages.PAGE_SIZE_IS_INVALID)
 	private Integer pageSize = DEFAULT_PAGE_SIZE;
 
-	public ExpenseQueryRequest(List<LocalDateTime> dateInterval, String categoryName) {
-		this.dateInterval = dateInterval;
+	public ExpenseQueryRequest(LocalDateTime fromDate, LocalDateTime toDate, String categoryName) {
+		this.fromDate = fromDate;
+		this.toDate = toDate;
 		this.categoryName = categoryName;
 	}
 }
