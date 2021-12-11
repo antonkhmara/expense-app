@@ -1,6 +1,8 @@
 # Expense-application
 
 1. Clone this repository and run application with command `./gradlew run`
+
+`or`
 2. Download .jar file from release section on github and execute it
 
 ## Using the application
