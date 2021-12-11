@@ -1,41 +1,28 @@
-## Micronaut 3.2.1 Documentation
+# Expense-application
 
-- [User Guide](https://docs.micronaut.io/3.2.1/guide/index.html)
-- [API Reference](https://docs.micronaut.io/3.2.1/api/index.html)
-- [Configuration Reference](https://docs.micronaut.io/3.2.1/guide/configurationreference.html)
-- [Micronaut Guides](https://guides.micronaut.io/index.html)
+1. Clone this repository and run application with command `./gradlew run`
+2. Download .jar file from release section on github and execute it
 
----
+## Using the application
 
-## Feature lombok documentation
+### CRUD operations
 
-- [Micronaut Project Lombok documentation](https://docs.micronaut.io/latest/guide/index.html#lombok)
+- #### `http://localhost:8080/expense/v1/expanses/{expenseId}` - get expense by id
+- #### `http://localhost:8080/expense/v1/expanses` - create expense
+- #### `http://localhost:8080/expense/v1/{expenseId}` - update expense
+- #### `http://localhost:8080/expense/v1/{expenseId}` - delete expense by id
 
-- [https://projectlombok.org/features/all](https://projectlombok.org/features/all)
+### Search operations
 
-## Feature flyway documentation
+- #### `http://localhost:8080/expense/v1/search{?req*}` - search expenses with filter
+- #### `http://localhost:8080/expense/v1/count{?req*}` - count expenses with filter
 
-- [Micronaut Flyway Database Migration documentation](https://micronaut-projects.github.io/micronaut-flyway/latest/guide/index.html)
+### Statistics:
 
-- [https://flywaydb.org/](https://flywaydb.org/)
-
-## Feature r2dbc documentation
-
-- [Micronaut R2DBC documentation](https://micronaut-projects.github.io/micronaut-r2dbc/latest/guide/)
-
-- [https://r2dbc.io](https://r2dbc.io)
-
-## Feature http-client documentation
-
-- [Micronaut HTTP Client documentation](https://docs.micronaut.io/latest/guide/index.html#httpClient)
-
-## Feature data-r2dbc documentation
-
-- [Micronaut Data R2DBC documentation](https://micronaut-projects.github.io/micronaut-data/latest/guide/#dbc)
-
-- [https://r2dbc.io](https://r2dbc.io)
-
-## Feature testcontainers documentation
-
-- [https://www.testcontainers.org/](https://www.testcontainers.org/)
+- #### `http://localhost:8080/expense/v1/statistics/totalAmount` - get total amount of all expenses
+- #### `http://localhost:8080/expense/v1/statistics/totalExpenseByCategories` - get total expenses by month
+- #### `http://localhost:8080/expense/v1/statistics/theMostExpensiveMonth` - get the most expensive month
+- #### `http://localhost:8080/expense/v1/statistics/categoriesWithExceededLimit` - get categories where exceeded limit compare to previous month
+- #### `http://localhost:8080/expense/v1/statistics/expensesByCategories/{categoryName}` - get expenses by concrete category
+- #### `http://localhost:8080/expense/v1/statistics/dayWithOutExpenses{?req*}` - get day without expenses from interval
 
