@@ -1,6 +1,7 @@
 micronaut:
   application:
     name: expenseApp
+
 r2dbc:
   datasources:
     default:

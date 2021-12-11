@@ -17,7 +17,7 @@ public interface ExpenseStatisticService {
 
 	Flux<ExpensesByMonthResponse> theMostExpensiveMonth();
 
-	Mono<Map<String, Double>> categoriesWithExceededLimit();
+	Map<String, Double> categoriesWithExceededLimit();
 
 	Flux<ExpenseByCategoryResponse> listExpensesByCategory(String categoryName);
 

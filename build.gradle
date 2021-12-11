@@ -45,10 +45,20 @@ dependencies {
 	implementation("io.micronaut:micronaut-validation")
 }
 
-
 application {
 	mainClass.set("by.khmara.godel.Application")
 }
+
+jar {
+	manifest {
+		attributes('Main-Class': 'by.khmara.godel.Application')
+	}
+	duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+	from {
+		configurations.all.collect { it.isDirectory() ? it : zipTree(it) }
+	}
+}
+
 java {
 	sourceCompatibility = JavaVersion.toVersion("17")
 	targetCompatibility = JavaVersion.toVersion("17")

@@ -37,7 +37,7 @@ public class ExpenseStatisticController implements ExpenseStatisticContract {
 	}
 
 	@Override
-	public Mono<Map<String, Double>> getCategoriesWithExceededLimit() {
+	public Map<String, Double> getCategoriesWithExceededLimit() {
 		return expenseStatisticService.categoriesWithExceededLimit();
 	}
 

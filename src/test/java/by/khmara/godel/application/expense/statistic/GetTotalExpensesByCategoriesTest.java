@@ -16,7 +16,7 @@ public class GetTotalExpensesByCategoriesTest {
 	void shouldReturnTotalExpensesByCategories() {
 		var totalExpenseResponses = client.getTotalExpenseByCategories();
 
-		assertThat(totalExpenseResponses).hasSize(7);
+		assertThat(totalExpenseResponses).hasSize(6);
 		assertThat(totalExpenseResponses.get(0)).isInstanceOf(TotalExpenseResponse.class);
 	}
 

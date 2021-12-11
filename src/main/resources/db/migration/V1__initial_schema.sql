@@ -36,7 +36,7 @@ VALUES ('82ff2531-4fa7-4d62-a81b-505eed792b1a', 'food'),
 			 ('4e902cc9-4252-4df2-bbcf-8d35df003a7c', 'other');
 
 INSERT INTO expense(description, created_at, category_id, amount)
-VALUES ('null', '2021-11-11 19:27:26.860428', '4e902cc9-4252-4df2-bbcf-8d35df003a7c', 0);
+VALUES ('null', '2021-11-11 19:27:26.860428', '2c8f40f0-ee9c-4123-8fc0-a3fafc3690ab', 0);
 
 INSERT INTO expense(description, category_id, amount)
 VALUES ('Some fruits..', '82ff2531-4fa7-4d62-a81b-505eed792b1a', 20.15),

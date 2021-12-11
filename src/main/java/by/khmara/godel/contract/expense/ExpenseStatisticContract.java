@@ -23,7 +23,7 @@ public interface ExpenseStatisticContract {
 	Flux<ExpensesByMonthResponse> getMostExpensiveMonth();
 
 	@Get("/expense/v1/statistics/categoriesWithExceededLimit")
-	Mono<Map<String, Double>> getCategoriesWithExceededLimit();
+	Map<String, Double> getCategoriesWithExceededLimit();
 
 	@Get("/expense/v1/statistics/expensesByCategories/{categoryName}")
 	Flux<ExpenseByCategoryResponse> getExpensesByCategories(String categoryName);
